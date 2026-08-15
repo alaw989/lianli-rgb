@@ -1,0 +1,9 @@
+[Unit]
+Description=Lian Li wireless RGB keepalive timer (every 60s)
+
+[Timer]
+OnActiveSec=10s
+OnUnitActiveSec=60s
+
+[Install]
+WantedBy=timers.target

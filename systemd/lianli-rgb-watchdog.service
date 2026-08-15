@@ -1,0 +1,6 @@
+[Unit]
+Description=Lian Li wireless RGB watchdog (Direct mode refresh)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/lianli-rgb-watchdog.sh

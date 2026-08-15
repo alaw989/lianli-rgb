@@ -1,0 +1,16 @@
+[Unit]
+Description=OpenRGB SDK Server (RAM control via Python SDK)
+After=lianli-daemon.service
+# Wait for USB devices to settle before enumerating
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStartPre=/bin/sleep 15
+ExecStart=/home/alaw989/.local/bin/openrgb.AppImage --server --server-port 6742
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

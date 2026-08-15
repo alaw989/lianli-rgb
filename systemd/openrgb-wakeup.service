@@ -1,0 +1,15 @@
+[Unit]
+Description=OpenRGB - Re-apply theme on screen unlock
+After=openrgb-server.service
+Wants=openrgb-server.service
+PartOf=openrgb-server.service
+
+[Service]
+Type=simple
+ExecStart=/home/alaw989/.local/bin/openrgb-wakeup-monitor.sh
+Restart=on-failure
+RestartSec=5
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+
+[Install]
+WantedBy=default.target

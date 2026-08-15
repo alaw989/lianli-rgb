@@ -1,0 +1,153 @@
+#!/bin/bash
+# Apply a named RGB color profile to all Lian Li fans.
+# Usage: lianli-profile.sh <profile-name>
+# Profiles stored in ~/.config/lianli/profiles/<name>.json
+
+set -e
+
+PROFILE_NAME="${1:?Usage: lianli-profile.sh <profile-name>}"
+PROFILE_DIR="${HOME}/.config/lianli/profiles"
+PROFILE_FILE="${PROFILE_DIR}/${PROFILE_NAME}.json"
+SOCKET="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/lianli-daemon.sock"
+
+if [ ! -f "$PROFILE_FILE" ]; then
+  echo "ERROR: Profile not found: ${PROFILE_FILE}" >&2
+  echo "Available profiles:" >&2
+  ls -1 "${PROFILE_DIR}"/*.json 2>/dev/null | xargs -I{} basename {} .json >&2
+  exit 1
+fi
+
+if [ ! -S "$SOCKET" ]; then
+  echo "ERROR: lianli-daemon not running (socket not found)" >&2
+  exit 1
+fi
+
+PROFILE=$(cat "$PROFILE_FILE")
+echo "Applying profile: $(echo "$PROFILE" | python3 -c 'import json,sys; print(json.load(sys.stdin)["name"])')"
+
+# --- Extract colors ---
+INNER=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(json.dumps(p['wired']['inner']))")
+OUTER=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(json.dumps(p['wired']['outer']))")
+WIRELESS_INNER_COUNT=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(p['wireless']['inner_count'])")
+WIRELESS_OUTER_COUNT=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(p['wireless']['outer_count'])")
+
+# --- Wireless fans: handled by lianli-rgb-init.sh after daemon restart ---
+# (Proper 6-second spacing avoids RF channel saturation)
+
+# --- Wired fans: Static mode with Inner/Outer scope ---
+WIRED_GROUPS=("hid:6243168001:group0" "hid:6243168001:group1" "hid:6243168001:group2" "hid:6243168001:group3")
+
+for group in "${WIRED_GROUPS[@]}"; do
+  # Inner ring
+  echo "{\"method\":\"SetRgbEffect\",\"params\":{\"device_id\":\"$group\",\"zone\":0,\"effect\":{\"mode\":\"Static\",\"colors\":[$INNER],\"speed\":2,\"brightness\":4,\"direction\":\"Clockwise\",\"scope\":\"Inner\"}}}" \
+    | socat - UNIX-CONNECT:"$SOCKET" >/dev/null 2>&1
+  # Outer ring
+  echo "{\"method\":\"SetRgbEffect\",\"params\":{\"device_id\":\"$group\",\"zone\":0,\"effect\":{\"mode\":\"Static\",\"colors\":[$OUTER],\"speed\":2,\"brightness\":4,\"direction\":\"Clockwise\",\"scope\":\"Outer\"}}}" \
+    | socat - UNIX-CONNECT:"$SOCKET" >/dev/null 2>&1
+done
+echo "  Wired fans: done"
+
+# --- RAM: OpenRGB SDK (if profile has ram color) ---
+RAM_COLOR=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); r=p.get('ram'); print(json.dumps(r) if r else '')" 2>/dev/null)
+
+if [ -n "$RAM_COLOR" ]; then
+  python3 -c "
+from openrgb import OpenRGBClient
+from openrgb.utils import RGBColor
+c = OpenRGBClient('127.0.0.1', 6742, name='profile')
+for dev in c.ee_devices:
+    if dev.type.name == 'DRAM':
+        dev.set_mode('Static')
+        dev.set_color(RGBColor(*$RAM_COLOR))
+c.disconnect()
+" 2>/dev/null && echo "  RAM: done" || echo "  RAM: skipped (OpenRGB server not ready)"
+fi
+
+# --- Motherboard ARGB (JRAINBOW1): via OpenRGB SDK ---
+MB_COLOR=$(echo "$PROFILE" | python3 -c "
+import json, sys
+p = json.load(sys.stdin)
+mb = p.get('motherboard', {})
+c = mb.get('color', p.get('wired', {}).get('outer', [255,200,50]))
+print(json.dumps(c))
+" 2>/dev/null)
+
+if [ -n "$MB_COLOR" ]; then
+  python3 -c "
+from openrgb import OpenRGBClient
+from openrgb.utils import RGBColor
+c = OpenRGBClient('127.0.0.1', 6742, name='profile')
+for dev in c.devices:
+    if dev.type.name == 'MOTHERBOARD' and 'MSI' in dev.name:
+        colors = []
+        for led in dev.leds:
+            if 'JRAINBOW' in led.name:
+                colors.append(RGBColor(*$MB_COLOR))
+            else:
+                colors.append(RGBColor(0,0,0))
+        dev.set_mode('Direct')
+        dev.set_colors(colors)
+        break
+c.disconnect()
+" 2>/dev/null && echo "  Motherboard: done" || echo "  Motherboard: skipped"
+fi
+
+# --- Persist: write current profile name for watchdog ---
+mkdir -p "${HOME}/.config/lianli"
+echo "$PROFILE_NAME" > "${HOME}/.config/lianli/current-profile"
+
+# --- Persist: write config file on disk so daemon restarts pick it up ---
+CONFIG_FILE="${HOME}/.config/lianli/config.json"
+python3 -c "
+import json
+
+inner = $INNER
+outer = $OUTER
+wireless_devices = ['wireless:24:12:76:e5:66:e1', 'wireless:a8:87:d8:e5:66:e1']
+wireless_full = [inner] * $WIRELESS_INNER_COUNT + [outer] * $WIRELESS_OUTER_COUNT
+
+with open('$CONFIG_FILE') as f:
+    config = json.load(f)
+
+config['rgb']['enabled'] = True
+
+new_devices = []
+for d in config['rgb']['devices']:
+    if d['device_id'].startswith('wireless:'):
+        continue
+    for z in d['zones']:
+        if z['effect'].get('scope') == 'Inner':
+            z['effect']['colors'] = [inner]
+        else:
+            z['effect']['colors'] = [outer]
+    new_devices.append(d)
+
+for did in wireless_devices:
+    zones = []
+    for z in range(3):
+        zones.append({
+            'effect': {'mode': 'Direct', 'colors': wireless_full, 'speed': 2, 'brightness': 4, 'direction': 'Clockwise', 'scope': 'All'},
+            'swap_lr': False, 'swap_tb': False, 'zone_index': z
+        })
+    new_devices.append({'device_id': did, 'mb_rgb_sync': False, 'zones': zones})
+
+config['rgb']['devices'] = new_devices
+
+with open('$CONFIG_FILE', 'w') as f:
+    json.dump(config, f, indent=2)
+print('  Config file: written')
+" 2>/dev/null || true
+
+# Restart daemon so RGB controller re-reads config from file
+systemctl --user restart lianli-daemon
+
+# Wait for socket
+for i in $(seq 1 15); do
+  [ -S "$SOCKET" ] && break
+  sleep 1
+done
+
+# Push Direct mode with proper 6-second spacing
+(/home/alaw989/.local/bin/lianli-rgb-init.sh) &
+
+echo "Profile applied!"

@@ -1,0 +1,11 @@
+[Unit]
+Description=Lian Li Device Daemon
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/lianli-daemon
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

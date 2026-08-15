@@ -1,0 +1,12 @@
+[Unit]
+Description=Apply Direct RGB to Wireless SL-INF Fans
+After=lianli-daemon.service
+Requires=lianli-daemon.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/lianli-wireless-rgb.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

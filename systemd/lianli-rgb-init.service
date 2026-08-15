@@ -1,0 +1,12 @@
+[Unit]
+Description=Lian Li wireless RGB init (spaced Direct mode pushes)
+After=lianli-daemon.service
+Wants=lianli-daemon.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/lianli-rgb-init.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
