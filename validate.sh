@@ -76,6 +76,62 @@ for f in "$ROOT"/profiles/*.json; do
 done
 echo "OK"
 
+echo "== Device ids sourced from capabilities.json (no hardcoded literals) =="
+if python3 - "$ROOT" <<'PY'
+import json, os, re, sys
+root = sys.argv[1]
+
+cap = json.load(open(os.path.join(root, 'capabilities.json')))
+cap_ids = set()
+for dev in cap['devices'].values():
+    for inst in dev.get('instances', []):
+        cap_ids.add(inst['device_id'])
+
+# wireless MAC ids and wired AL V2 group ids (the ids that must come from capabilities.json)
+lit_re = re.compile(r'wireless:[0-9a-f:]+|hid:[0-9]+:group[0-9]+')
+bad = []
+
+# 1. scripts/ must contain no device-id literals at all
+for fn in sorted(os.listdir(os.path.join(root, 'scripts'))):
+    if not fn.endswith('.sh'):
+        continue
+    for i, line in enumerate(open(os.path.join(root, 'scripts', fn)), 1):
+        if lit_re.search(line):
+            bad.append(f"scripts/{fn}:{i}: hardcoded device id in {line.strip()[:60]!r}")
+
+# 2. config.json wireless/wired ids must match capabilities.json exactly (drift check)
+cfg = json.load(open(os.path.join(root, 'config.json')))
+cfg_ids = set()
+def walk(o):
+    if isinstance(o, dict):
+        if 'device_id' in o:
+            cfg_ids.add(o['device_id'])
+        for v in o.values():
+            walk(v)
+    elif isinstance(o, list):
+        for v in o:
+            walk(v)
+walk(cfg)
+
+cfg_relevant = {i for i in cfg_ids if lit_re.match(i)}
+cap_relevant = {i for i in cap_ids if lit_re.match(i)}
+
+for i in sorted(cfg_relevant - cap_relevant):
+    bad.append(f"config.json references {i} which is not in capabilities.json")
+for i in sorted(cap_relevant - cfg_relevant):
+    bad.append(f"config.json missing {i} from capabilities.json (regen by applying a profile)")
+
+if bad:
+    for b in bad:
+        print(f"  FAIL: {b}", file=sys.stderr)
+    sys.exit(1)
+PY
+then
+  echo "OK: scripts/config device ids all come from capabilities.json"
+else
+  FAIL=1
+fi
+
 echo "== Service health =="
 for s in lianli-daemon.service openrgb-server.service; do
   st=$(systemctl --user is-active "$s" 2>/dev/null || echo inactive)
