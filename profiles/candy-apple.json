@@ -1,0 +1,42 @@
+{
+  "name": "Candy Apple",
+  "description": "Bright red inner, white outer",
+  "ram": [
+    255,
+    0,
+    0
+  ],
+  "wired": {
+    "inner": [
+      255,
+      52,
+      50
+    ],
+    "outer": [
+      255,
+      0,
+      0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      255,
+      52,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      255,
+      0,
+      0
+    ]
+  },
+  "motherboard": {
+    "color": [
+      255,
+      255,
+      255
+    ]
+  }
+}

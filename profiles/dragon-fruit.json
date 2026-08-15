@@ -1,0 +1,42 @@
+{
+  "name": "Dragon Fruit",
+  "description": "Magenta inner, lime green outer",
+  "ram": [
+    200,
+    0,
+    100
+  ],
+  "wired": {
+    "inner": [
+      156,
+      50,
+      50
+    ],
+    "outer": [
+      200,
+      0,
+      100
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      156,
+      50,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      200,
+      0,
+      100
+    ]
+  },
+  "motherboard": {
+    "color": [
+      150,
+      255,
+      0
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Royal",
+  "description": "Deep royal purple inner, bright gold outer, RAM gold",
+  "ram": [255, 215, 0],
+  "wired": {
+    "inner": [75, 0, 130],
+    "outer": [255, 215, 0]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [75, 0, 130],
+    "outer_count": 36,
+    "outer_color": [255, 215, 0]
+  }
+}

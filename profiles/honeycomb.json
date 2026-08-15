@@ -1,0 +1,42 @@
+{
+  "name": "Honeycomb",
+  "description": "Warm gold inner, dark amber outer",
+  "ram": [
+    255,
+    200,
+    50
+  ],
+  "wired": {
+    "inner": [
+      206,
+      248,
+      52
+    ],
+    "outer": [
+      255,
+      200,
+      50
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      206,
+      248,
+      52
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      255,
+      200,
+      50
+    ]
+  },
+  "motherboard": {
+    "color": [
+      150,
+      100,
+      0
+    ]
+  }
+}

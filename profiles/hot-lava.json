@@ -1,0 +1,42 @@
+{
+  "name": "Hot Lava",
+  "description": "Red inner, orange outer",
+  "ram": [
+    255,
+    0,
+    0
+  ],
+  "wired": {
+    "inner": [
+      255,
+      50,
+      50
+    ],
+    "outer": [
+      255,
+      0,
+      0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      255,
+      50,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      255,
+      0,
+      0
+    ]
+  },
+  "motherboard": {
+    "color": [
+      255,
+      100,
+      0
+    ]
+  }
+}

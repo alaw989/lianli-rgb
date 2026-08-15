@@ -1,0 +1,42 @@
+{
+  "name": "Crushed Velvet",
+  "description": "Rich burgundy inner, gold outer",
+  "ram": [
+    120,
+    0,
+    40
+  ],
+  "wired": {
+    "inner": [
+      126,
+      50,
+      50
+    ],
+    "outer": [
+      120,
+      0,
+      40
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      126,
+      50,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      120,
+      0,
+      40
+    ]
+  },
+  "motherboard": {
+    "color": [
+      200,
+      170,
+      50
+    ]
+  }
+}

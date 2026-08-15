@@ -1,0 +1,42 @@
+{
+  "name": "Digital Rain",
+  "description": "Dark green inner, bright green outer",
+  "ram": [
+    0,
+    50,
+    0
+  ],
+  "wired": {
+    "inner": [
+      50,
+      50,
+      50
+    ],
+    "outer": [
+      0,
+      50,
+      0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      50,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      50,
+      0
+    ]
+  },
+  "motherboard": {
+    "color": [
+      0,
+      255,
+      50
+    ]
+  }
+}

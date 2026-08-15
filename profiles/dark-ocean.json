@@ -1,0 +1,42 @@
+{
+  "name": "Dark Ocean",
+  "description": "Deep blue inner, bioluminescent green outer",
+  "ram": [
+    0,
+    30,
+    80
+  ],
+  "wired": {
+    "inner": [
+      50,
+      50,
+      60
+    ],
+    "outer": [
+      0,
+      30,
+      80
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      50,
+      60
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      30,
+      80
+    ]
+  },
+  "motherboard": {
+    "color": [
+      0,
+      200,
+      100
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "Abyss",
+  "description": "Deep navy inner, ice white outer, RAM white",
+  "ram": [220, 235, 255],
+  "wired": {
+    "inner": [15, 25, 80],
+    "outer": [220, 235, 255]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [15, 25, 80],
+    "outer_count": 36,
+    "outer_color": [220, 235, 255]
+  }
+}

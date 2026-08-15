@@ -1,0 +1,42 @@
+{
+  "name": "Barbie Core",
+  "description": "Bright pink inner, white outer",
+  "ram": [
+    255,
+    20,
+    147
+  ],
+  "wired": {
+    "inner": [
+      255,
+      69,
+      150
+    ],
+    "outer": [
+      255,
+      20,
+      147
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      255,
+      69,
+      150
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      255,
+      20,
+      147
+    ]
+  },
+  "motherboard": {
+    "color": [
+      255,
+      255,
+      255
+    ]
+  }
+}

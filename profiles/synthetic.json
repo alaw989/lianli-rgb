@@ -1,0 +1,18 @@
+{
+  "name": "Synthetic",
+  "description": "Bright magenta inner, electric violet outer, RAM magenta",
+  "ram": [255, 0, 200],
+  "wired": {
+    "inner": [255, 0, 150],
+    "outer": [170, 0, 255]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [255, 0, 150],
+    "outer_count": 36,
+    "outer_color": [170, 0, 255]
+  },
+  "motherboard": {
+    "color": [170, 0, 255]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "Egyptian Gold",
+  "description": "Gold inner, deep blue outer",
+  "ram": [
+    255,
+    200,
+    0
+  ],
+  "wired": {
+    "inner": [
+      233,
+      230,
+      50
+    ],
+    "outer": [
+      255,
+      200,
+      0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      233,
+      230,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      255,
+      200,
+      0
+    ]
+  },
+  "motherboard": {
+    "color": [
+      10,
+      20,
+      80
+    ]
+  }
+}

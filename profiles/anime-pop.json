@@ -1,0 +1,42 @@
+{
+  "name": "Anime Pop",
+  "description": "Hot pink inner, sky blue outer",
+  "ram": [
+    255,
+    50,
+    150
+  ],
+  "wired": {
+    "inner": [
+      213,
+      103,
+      149
+    ],
+    "outer": [
+      255,
+      50,
+      150
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      213,
+      103,
+      149
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      255,
+      50,
+      150
+    ]
+  },
+  "motherboard": {
+    "color": [
+      50,
+      150,
+      255
+    ]
+  }
+}

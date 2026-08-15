@@ -1,0 +1,42 @@
+{
+  "name": "Acid Wash",
+  "description": "Faded teal inner, dark denim outer",
+  "ram": [
+    0,
+    180,
+    150
+  ],
+  "wired": {
+    "inner": [
+      50,
+      220,
+      113
+    ],
+    "outer": [
+      0,
+      180,
+      150
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      220,
+      113
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      180,
+      150
+    ]
+  },
+  "motherboard": {
+    "color": [
+      20,
+      30,
+      60
+    ]
+  }
+}

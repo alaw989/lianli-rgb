@@ -1,0 +1,42 @@
+{
+  "name": "Black Ice",
+  "description": "Dark blue inner, ice white outer",
+  "ram": [
+    0,
+    50,
+    100
+  ],
+  "wired": {
+    "inner": [
+      50,
+      100,
+      66
+    ],
+    "outer": [
+      0,
+      50,
+      100
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      100,
+      66
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      50,
+      100
+    ]
+  },
+  "motherboard": {
+    "color": [
+      200,
+      220,
+      255
+    ]
+  }
+}

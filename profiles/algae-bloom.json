@@ -1,0 +1,42 @@
+{
+  "name": "Algae Bloom",
+  "description": "Neon green inner, murky teal outer",
+  "ram": [
+    50,
+    255,
+    50
+  ],
+  "wired": {
+    "inner": [
+      50,
+      255,
+      50
+    ],
+    "outer": [
+      50,
+      255,
+      50
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      255,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      50,
+      255,
+      50
+    ]
+  },
+  "motherboard": {
+    "color": [
+      0,
+      100,
+      100
+    ]
+  }
+}

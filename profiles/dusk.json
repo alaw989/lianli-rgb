@@ -1,0 +1,15 @@
+{
+  "name": "Dusk",
+  "description": "Dark plum inner, dusty lavender outer, RAM lavender",
+  "ram": [184, 169, 201],
+  "wired": {
+    "inner": [60, 19, 97],
+    "outer": [184, 169, 201]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [60, 19, 97],
+    "outer_count": 36,
+    "outer_color": [184, 169, 201]
+  }
+}

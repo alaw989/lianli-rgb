@@ -1,0 +1,42 @@
+{
+  "name": "Crimson Tide",
+  "description": "Deep red inner, navy outer",
+  "ram": [
+    200,
+    0,
+    0
+  ],
+  "wired": {
+    "inner": [
+      199,
+      50,
+      50
+    ],
+    "outer": [
+      200,
+      0,
+      0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      199,
+      50,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      200,
+      0,
+      0
+    ]
+  },
+  "motherboard": {
+    "color": [
+      0,
+      20,
+      60
+    ]
+  }
+}

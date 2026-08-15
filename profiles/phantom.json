@@ -1,0 +1,15 @@
+{
+  "name": "Phantom",
+  "description": "Dodger blue inner, ghost white outer, RAM ghost white",
+  "ram": [240, 248, 255],
+  "wired": {
+    "inner": [30, 144, 255],
+    "outer": [240, 248, 255]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [30, 144, 255],
+    "outer_count": 36,
+    "outer_color": [240, 248, 255]
+  }
+}

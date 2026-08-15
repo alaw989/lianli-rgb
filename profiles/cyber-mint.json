@@ -1,0 +1,42 @@
+{
+  "name": "Cyber Mint",
+  "description": "Mint green inner, dark cyber-blue outer",
+  "ram": [
+    100,
+    255,
+    180
+  ],
+  "wired": {
+    "inner": [
+      79,
+      216,
+      196
+    ],
+    "outer": [
+      100,
+      255,
+      180
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      79,
+      216,
+      196
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      100,
+      255,
+      180
+    ]
+  },
+  "motherboard": {
+    "color": [
+      0,
+      50,
+      100
+    ]
+  }
+}

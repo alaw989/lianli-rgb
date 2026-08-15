@@ -1,0 +1,42 @@
+{
+  "name": "Android",
+  "description": "Matrix green inner, dark grey outer",
+  "ram": [
+    0,
+    255,
+    0
+  ],
+  "wired": {
+    "inner": [
+      50,
+      202,
+      50
+    ],
+    "outer": [
+      0,
+      255,
+      0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      202,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      255,
+      0
+    ]
+  },
+  "motherboard": {
+    "color": [
+      30,
+      30,
+      30
+    ]
+  }
+}

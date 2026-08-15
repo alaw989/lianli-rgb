@@ -1,0 +1,42 @@
+{
+  "name": "Amethyst Geode",
+  "description": "Light violet inner, deep amethyst outer",
+  "ram": [
+    200,
+    150,
+    255
+  ],
+  "wired": {
+    "inner": [
+      220,
+      163,
+      255
+    ],
+    "outer": [
+      200,
+      150,
+      255
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      220,
+      163,
+      255
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      200,
+      150,
+      255
+    ]
+  },
+  "motherboard": {
+    "color": [
+      80,
+      0,
+      120
+    ]
+  }
+}

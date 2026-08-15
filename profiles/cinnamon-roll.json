@@ -1,0 +1,42 @@
+{
+  "name": "Cinnamon Roll",
+  "description": "Warm brown inner, cream outer",
+  "ram": [
+    180,
+    100,
+    50
+  ],
+  "wired": {
+    "inner": [
+      227,
+      123,
+      50
+    ],
+    "outer": [
+      180,
+      100,
+      50
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      227,
+      123,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      180,
+      100,
+      50
+    ]
+  },
+  "motherboard": {
+    "color": [
+      255,
+      240,
+      210
+    ]
+  }
+}

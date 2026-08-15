@@ -1,0 +1,42 @@
+{
+  "name": "Blueberry Muffin",
+  "description": "Blue-violet inner, warm cream outer",
+  "ram": [
+    100,
+    50,
+    200
+  ],
+  "wired": {
+    "inner": [
+      106,
+      56,
+      242
+    ],
+    "outer": [
+      100,
+      50,
+      200
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      106,
+      56,
+      242
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      100,
+      50,
+      200
+    ]
+  },
+  "motherboard": {
+    "color": [
+      255,
+      230,
+      180
+    ]
+  }
+}

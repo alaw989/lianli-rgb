@@ -1,0 +1,42 @@
+{
+  "name": "Circuit Board",
+  "description": "Green inner, dark outer",
+  "ram": [
+    0,
+    200,
+    50
+  ],
+  "wired": {
+    "inner": [
+      50,
+      150,
+      50
+    ],
+    "outer": [
+      0,
+      200,
+      50
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      150,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      200,
+      50
+    ]
+  },
+  "motherboard": {
+    "color": [
+      20,
+      40,
+      20
+    ]
+  }
+}

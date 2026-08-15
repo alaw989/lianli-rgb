@@ -1,0 +1,18 @@
+{
+  "name": "Aurora",
+  "description": "Vivid emerald inner, electric magenta outer, RAM magenta",
+  "ram": [255, 0, 200],
+  "wired": {
+    "inner": [0, 255, 180],
+    "outer": [255, 0, 200]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [0, 255, 180],
+    "outer_count": 36,
+    "outer_color": [255, 0, 200]
+  },
+  "motherboard": {
+    "color": [255, 0, 200]
+  }
+}

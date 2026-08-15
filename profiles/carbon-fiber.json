@@ -1,0 +1,42 @@
+{
+  "name": "Carbon Fiber",
+  "description": "Dark grey inner, red accent outer",
+  "ram": [
+    40,
+    40,
+    40
+  ],
+  "wired": {
+    "inner": [
+    40,
+    40,
+    40
+    ],
+    "outer": [
+    200,
+    0,
+    0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+    40,
+    40,
+    40
+    ],
+    "outer_count": 36,
+    "outer_color": [
+    200,
+    0,
+    0
+    ]
+  },
+  "motherboard": {
+    "color": [
+    200,
+    0,
+    0
+    ]
+  }
+}

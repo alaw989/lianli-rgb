@@ -1,0 +1,42 @@
+{
+  "name": "Aurora Borealis",
+  "description": "Green inner, purple outer, like northern lights",
+  "ram": [
+    0,
+    255,
+    100
+  ],
+  "wired": {
+    "inner": [
+      50,
+      239,
+      104
+    ],
+    "outer": [
+      0,
+      255,
+      100
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      239,
+      104
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      255,
+      100
+    ]
+  },
+  "motherboard": {
+    "color": [
+      150,
+      0,
+      200
+    ]
+  }
+}

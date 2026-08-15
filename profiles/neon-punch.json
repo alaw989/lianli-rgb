@@ -1,0 +1,18 @@
+{
+  "name": "Neon Punch",
+  "description": "Hot pink inner, lime green outer, RAM green",
+  "ram": [0, 255, 50],
+  "wired": {
+    "inner": [255, 0, 128],
+    "outer": [0, 255, 50]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [255, 0, 128],
+    "outer_count": 36,
+    "outer_color": [0, 255, 50]
+  },
+  "motherboard": {
+    "color": [0, 255, 50]
+  }
+}

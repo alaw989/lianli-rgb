@@ -1,0 +1,42 @@
+{
+  "name": "Grape Soda",
+  "description": "Purple inner, magenta outer",
+  "ram": [
+    120,
+    0,
+    200
+  ],
+  "wired": {
+    "inner": [
+      66,
+      50,
+      185
+    ],
+    "outer": [
+      120,
+      0,
+      200
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      66,
+      50,
+      185
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      120,
+      0,
+      200
+    ]
+  },
+  "motherboard": {
+    "color": [
+      200,
+      0,
+      150
+    ]
+  }
+}

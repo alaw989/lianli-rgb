@@ -1,0 +1,15 @@
+{
+  "name": "Blood Moon",
+  "description": "Dark crimson inner, fiery orange-red outer, RAM crimson",
+  "ram": [139, 0, 0],
+  "wired": {
+    "inner": [139, 0, 0],
+    "outer": [255, 69, 0]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [139, 0, 0],
+    "outer_count": 36,
+    "outer_color": [255, 69, 0]
+  }
+}

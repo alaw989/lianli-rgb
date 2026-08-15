@@ -1,0 +1,42 @@
+{
+  "name": "Afterglow",
+  "description": "Warm amber inner, deep purple outer",
+  "ram": [
+    255,
+    180,
+    50
+  ],
+  "wired": {
+    "inner": [
+      208,
+      228,
+      61
+    ],
+    "outer": [
+      255,
+      180,
+      50
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      208,
+      228,
+      61
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      255,
+      180,
+      50
+    ]
+  },
+  "motherboard": {
+    "color": [
+      100,
+      0,
+      150
+    ]
+  }
+}

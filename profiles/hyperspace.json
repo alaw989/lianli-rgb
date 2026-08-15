@@ -1,0 +1,42 @@
+{
+  "name": "Hyperspace",
+  "description": "Purple-blue inner, white outer",
+  "ram": [
+    80,
+    50,
+    200
+  ],
+  "wired": {
+    "inner": [
+      98,
+      50,
+      213
+    ],
+    "outer": [
+      80,
+      50,
+      200
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      98,
+      50,
+      213
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      80,
+      50,
+      200
+    ]
+  },
+  "motherboard": {
+    "color": [
+      200,
+      200,
+      255
+    ]
+  }
+}

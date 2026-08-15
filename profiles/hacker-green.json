@@ -1,0 +1,42 @@
+{
+  "name": "Hacker Green",
+  "description": "Bright green inner, dark green outer",
+  "ram": [
+    0,
+    255,
+    0
+  ],
+  "wired": {
+    "inner": [
+      50,
+      195,
+      50
+    ],
+    "outer": [
+      0,
+      255,
+      0
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      195,
+      50
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      255,
+      0
+    ]
+  },
+  "motherboard": {
+    "color": [
+      0,
+      40,
+      0
+    ]
+  }
+}

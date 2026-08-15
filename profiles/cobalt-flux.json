@@ -1,0 +1,42 @@
+{
+  "name": "Cobalt Flux",
+  "description": "Deep blue inner, silver outer",
+  "ram": [
+    0,
+    50,
+    180
+  ],
+  "wired": {
+    "inner": [
+      50,
+      50,
+      155
+    ],
+    "outer": [
+      0,
+      50,
+      180
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      50,
+      155
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      0,
+      50,
+      180
+    ]
+  },
+  "motherboard": {
+    "color": [
+      180,
+      180,
+      190
+    ]
+  }
+}

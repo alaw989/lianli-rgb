@@ -1,0 +1,42 @@
+{
+  "name": "Gunmetal",
+  "description": "Dark grey inner, bronze outer",
+  "ram": [
+    60,
+    60,
+    65
+  ],
+  "wired": {
+    "inner": [
+      50,
+      102,
+      109
+    ],
+    "outer": [
+      60,
+      60,
+      65
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      50,
+      102,
+      109
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      60,
+      60,
+      65
+    ]
+  },
+  "motherboard": {
+    "color": [
+      150,
+      120,
+      80
+    ]
+  }
+}

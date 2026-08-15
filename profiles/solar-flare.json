@@ -1,0 +1,15 @@
+{
+  "name": "Solar Flare",
+  "description": "Blazing orange inner, golden yellow outer, RAM gold",
+  "ram": [255, 215, 0],
+  "wired": {
+    "inner": [255, 102, 0],
+    "outer": [255, 215, 0]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [255, 102, 0],
+    "outer_count": 36,
+    "outer_color": [255, 215, 0]
+  }
+}

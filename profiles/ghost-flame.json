@@ -1,0 +1,42 @@
+{
+  "name": "Ghost Flame",
+  "description": "Pale blue inner, white outer",
+  "ram": [
+    150,
+    200,
+    255
+  ],
+  "wired": {
+    "inner": [
+      132,
+      164,
+      255
+    ],
+    "outer": [
+      150,
+      200,
+      255
+    ]
+  },
+  "wireless": {
+    "inner_count": 8,
+    "inner_color": [
+      132,
+      164,
+      255
+    ],
+    "outer_count": 36,
+    "outer_color": [
+      150,
+      200,
+      255
+    ]
+  },
+  "motherboard": {
+    "color": [
+      255,
+      250,
+      240
+    ]
+  }
+}
