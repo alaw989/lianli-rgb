@@ -42,6 +42,10 @@ wired = d['wired_al_v2']['led_layout']
 assert wired['inner'] == 8 and wired['outer'] == 12, f"wired AL V2 split must be 8/12, got {wired}"
 assert d['wired_al_v2']['led_total'] == wired['inner'] + wired['outer']
 assert d['motherboard_jrainbow1']['led_count'] == 72
+mb = d['motherboard_jrainbow1']
+assert 0 <= mb.get('led_offset', 0), "led_offset must be >= 0"
+assert mb['led_offset'] + mb['led_count'] <= 74, \
+    f"JRAINBOW1 offset+count {mb['led_offset']}+{mb['led_count']} exceeds 74 (0-1 are JRGB1/JRGB2)"
 for name, dev in d.items():
     for inst in dev.get('instances', []):
         assert inst['device_id']

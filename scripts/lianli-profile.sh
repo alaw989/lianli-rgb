@@ -78,8 +78,10 @@ from openrgb.utils import RGBColor
 c = OpenRGBClient('127.0.0.1', 6742, name='profile')
 for dev in c.devices:
     if dev.type.name == 'MOTHERBOARD' and 'MSI' in dev.name:
-        count = min($MB_LED_COUNT, len(dev.leds))
-        colors = [RGBColor(*$MB_COLOR)] * count + [RGBColor(0, 0, 0)] * (len(dev.leds) - count)
+        start = $MB_LED_OFFSET
+        count = min($MB_LED_COUNT, len(dev.leds) - start)
+        colors = [RGBColor(0, 0, 0)] * len(dev.leds)
+        colors[start:start + count] = [RGBColor(*$MB_COLOR)] * count
         dev.set_mode('Direct')
         dev.set_colors(colors)
         break

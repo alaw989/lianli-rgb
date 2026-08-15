@@ -46,7 +46,8 @@
     "motherboard_jrainbow1": {
       "vendor": "MSI",
       "controller": "JRAINBOW1",
-      "led_count": 72
+      "led_count": 72,
+      "led_offset": 2
     },
     "ram": {
       "led_count": 4

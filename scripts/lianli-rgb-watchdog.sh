@@ -67,8 +67,10 @@ mb_color = mb.get('color', p.get('wired', {}).get('outer', [255,200,50]))
 c = OpenRGBClient('127.0.0.1', 6742, name='watchdog')
 for dev in c.devices:
     if dev.type.name == 'MOTHERBOARD' and 'MSI' in dev.name:
-        count = min($MB_LED_COUNT, len(dev.leds))
-        colors = [RGBColor(*mb_color)] * count + [RGBColor(0, 0, 0)] * (len(dev.leds) - count)
+        start = $MB_LED_OFFSET
+        count = min($MB_LED_COUNT, len(dev.leds) - start)
+        colors = [RGBColor(0, 0, 0)] * len(dev.leds)
+        colors[start:start + count] = [RGBColor(*mb_color)] * count
         dev.set_mode('Direct')
         dev.set_colors(colors)
         break
