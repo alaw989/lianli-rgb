@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "devices": {
+    "wireless_slinf": {
+      "vendor": "Lian Li",
+      "model": "SL-INF Wireless",
+      "led_layout": {
+        "inner": 8,
+        "outer": 36
+      },
+      "led_total": 44,
+      "instances": [
+        {
+          "device_id": "wireless:24:12:76:e5:66:e1",
+          "zones": 3
+        },
+        {
+          "device_id": "wireless:a8:87:d8:e5:66:e1",
+          "zones": 3
+        }
+      ]
+    },
+    "wired_al_v2": {
+      "vendor": "Lian Li",
+      "model": "AL V2",
+      "led_layout": {
+        "inner": 8,
+        "outer": 12
+      },
+      "led_total": 20,
+      "instances": [
+        {
+          "device_id": "hid:6243168001:group0"
+        },
+        {
+          "device_id": "hid:6243168001:group1"
+        },
+        {
+          "device_id": "hid:6243168001:group2"
+        },
+        {
+          "device_id": "hid:6243168001:group3"
+        }
+      ]
+    },
+    "motherboard_jrainbow1": {
+      "vendor": "MSI",
+      "controller": "JRAINBOW1",
+      "led_count": 72
+    },
+    "ram": {
+      "led_count": 4
+    }
+  }
+}

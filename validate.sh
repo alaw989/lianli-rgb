@@ -29,6 +29,42 @@ PY
 done
 echo "OK: all profiles valid"
 
+echo "== capabilities.json =="
+python3 - "$ROOT/capabilities.json" <<'PY' || FAIL=1
+import json, sys
+c = json.load(open(sys.argv[1]))
+assert isinstance(c.get('version'), int)
+d = c['devices']
+wl = d['wireless_slinf']['led_layout']
+assert wl['inner'] == 8 and wl['outer'] == 36, f"wireless SL-INF split must be 8/36, got {wl}"
+assert d['wireless_slinf']['led_total'] == wl['inner'] + wl['outer']
+wired = d['wired_al_v2']['led_layout']
+assert wired['inner'] == 8 and wired['outer'] == 12, f"wired AL V2 split must be 8/12, got {wired}"
+assert d['wired_al_v2']['led_total'] == wired['inner'] + wired['outer']
+assert d['motherboard_jrainbow1']['led_count'] == 72
+for name, dev in d.items():
+    for inst in dev.get('instances', []):
+        assert inst['device_id']
+PY
+echo "OK: capabilities.json valid"
+
+echo "== Profile wireless split matches capabilities =="
+WL_CAPS="$(python3 -c "import json; l=json.load(open('$ROOT/capabilities.json'))['devices']['wireless_slinf']['led_layout']; print(l['inner'], l['outer'])")"
+WL_IN="${WL_CAPS%% *}"
+WL_OUT="${WL_CAPS##* }"
+for f in "$ROOT"/profiles/*.json; do
+  python3 - "$f" "$WL_IN" "$WL_OUT" <<'PY' || FAIL=1
+import json, sys
+p = json.load(open(sys.argv[1]))
+w = p.get('wireless') or {}
+if w.get('inner_count') is not None:
+    if w['inner_count'] != int(sys.argv[2]) or w['outer_count'] != int(sys.argv[3]):
+        print(f"{sys.argv[1]}: wireless split {w['inner_count']}/{w['outer_count']} != {sys.argv[2]}/{sys.argv[3]}", file=sys.stderr)
+        sys.exit(1)
+PY
+done
+echo "OK: all profile splits match capabilities.json"
+
 echo "== Profile naming =="
 for f in "$ROOT"/profiles/*.json; do
   base=$(basename "$f" .json)

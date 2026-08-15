@@ -5,6 +5,9 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+. "$SCRIPT_DIR/lianli-capabilities.sh"
+
 PROFILE_NAME="${1:?Usage: lianli-profile.sh <profile-name>}"
 PROFILE_DIR="${HOME}/.config/lianli/profiles"
 PROFILE_FILE="${PROFILE_DIR}/${PROFILE_NAME}.json"
@@ -28,16 +31,12 @@ echo "Applying profile: $(echo "$PROFILE" | python3 -c 'import json,sys; print(j
 # --- Extract colors ---
 INNER=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(json.dumps(p['wired']['inner']))")
 OUTER=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(json.dumps(p['wired']['outer']))")
-WIRELESS_INNER_COUNT=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(p['wireless']['inner_count'])")
-WIRELESS_OUTER_COUNT=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); print(p['wireless']['outer_count'])")
 
 # --- Wireless fans: handled by lianli-rgb-init.sh after daemon restart ---
 # (Proper 6-second spacing avoids RF channel saturation)
 
 # --- Wired fans: Static mode with Inner/Outer scope ---
-WIRED_GROUPS=("hid:6243168001:group0" "hid:6243168001:group1" "hid:6243168001:group2" "hid:6243168001:group3")
-
-for group in "${WIRED_GROUPS[@]}"; do
+for group in $WIRED_GROUPS; do
   # Inner ring
   echo "{\"method\":\"SetRgbEffect\",\"params\":{\"device_id\":\"$group\",\"zone\":0,\"effect\":{\"mode\":\"Static\",\"colors\":[$INNER],\"speed\":2,\"brightness\":4,\"direction\":\"Clockwise\",\"scope\":\"Inner\"}}}" \
     | socat - UNIX-CONNECT:"$SOCKET" >/dev/null 2>&1
@@ -79,12 +78,8 @@ from openrgb.utils import RGBColor
 c = OpenRGBClient('127.0.0.1', 6742, name='profile')
 for dev in c.devices:
     if dev.type.name == 'MOTHERBOARD' and 'MSI' in dev.name:
-        colors = []
-        for led in dev.leds:
-            if 'JRAINBOW' in led.name:
-                colors.append(RGBColor(*$MB_COLOR))
-            else:
-                colors.append(RGBColor(0,0,0))
+        count = min($MB_LED_COUNT, len(dev.leds))
+        colors = [RGBColor(*$MB_COLOR)] * count + [RGBColor(0, 0, 0)] * (len(dev.leds) - count)
         dev.set_mode('Direct')
         dev.set_colors(colors)
         break
@@ -98,13 +93,14 @@ echo "$PROFILE_NAME" > "${HOME}/.config/lianli/current-profile"
 
 # --- Persist: write config file on disk so daemon restarts pick it up ---
 CONFIG_FILE="${HOME}/.config/lianli/config.json"
+WIRELESS_DEVS_JSON="$(python3 -c "import json,sys; print(json.dumps('''$WIRELESS_DEVICES'''.split()))")"
 python3 -c "
 import json
 
 inner = $INNER
 outer = $OUTER
-wireless_devices = ['wireless:24:12:76:e5:66:e1', 'wireless:a8:87:d8:e5:66:e1']
-wireless_full = [inner] * $WIRELESS_INNER_COUNT + [outer] * $WIRELESS_OUTER_COUNT
+wireless_devices = json.loads('$WIRELESS_DEVS_JSON')
+wireless_full = [inner] * $WIRELESS_INNER + [outer] * $WIRELESS_OUTER
 
 with open('$CONFIG_FILE') as f:
     config = json.load(f)

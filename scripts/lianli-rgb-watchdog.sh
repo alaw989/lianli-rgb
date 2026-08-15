@@ -8,6 +8,9 @@
 # avoid saturating the 2.4GHz channel.
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+. "$SCRIPT_DIR/lianli-capabilities.sh"
+
 SOCKET="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/lianli-daemon.sock"
 PROFILE_FILE="${HOME}/.config/lianli/current-profile"
 PROFILE_DIR="${HOME}/.config/lianli/profiles"
@@ -25,7 +28,7 @@ p = json.load(open('$PROFILE_JSON'))
 w = p['wireless']
 inner = w['inner_color']
 outer = w['outer_color']
-colors = [inner] * w['inner_count'] + [outer] * w['outer_count']
+colors = [inner] * $WIRELESS_INNER + [outer] * $WIRELESS_OUTER
 print(json.dumps(colors))
 ")
 
@@ -42,7 +45,7 @@ print(json.dumps(cmd, separators=(',',':')))
 
 # One gentle pass per device, zones spaced 6s apart to stay within the
 # 5-second RF transmission window per SetRgbDirect.
-for dev in wireless:24:12:76:e5:66:e1 wireless:a8:87:d8:e5:66:e1; do
+for dev in $WIRELESS_DEVICES; do
   send_direct "$dev" 0 "$WIRELESS"
   sleep 6
   send_direct "$dev" 1 "$WIRELESS"
@@ -64,12 +67,8 @@ mb_color = mb.get('color', p.get('wired', {}).get('outer', [255,200,50]))
 c = OpenRGBClient('127.0.0.1', 6742, name='watchdog')
 for dev in c.devices:
     if dev.type.name == 'MOTHERBOARD' and 'MSI' in dev.name:
-        colors = []
-        for led in dev.leds:
-            if 'JRAINBOW' in led.name:
-                colors.append(RGBColor(*mb_color))
-            else:
-                colors.append(RGBColor(0,0,0))
+        count = min($MB_LED_COUNT, len(dev.leds))
+        colors = [RGBColor(*mb_color)] * count + [RGBColor(0, 0, 0)] * (len(dev.leds) - count)
         dev.set_mode('Direct')
         dev.set_colors(colors)
         break
