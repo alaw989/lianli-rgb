@@ -1,15 +1,21 @@
 {
   "name": "Cyberpunk",
   "description": "Hot pink inner, electric cyan outer, RAM cyan",
-  "ram": [0, 255, 255],
+  "ram": [
+    0,
+    255,
+    255
+  ],
   "wired": {
-    "inner": [255, 20, 147],
-    "outer": [0, 255, 255]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [255, 20, 147],
-    "outer_count": 36,
-    "outer_color": [0, 255, 255]
+    "inner": [
+      255,
+      20,
+      147
+    ],
+    "outer": [
+      0,
+      255,
+      255
+    ]
   }
 }

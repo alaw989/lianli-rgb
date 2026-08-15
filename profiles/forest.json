@@ -1,15 +1,21 @@
 {
   "name": "Forest",
   "description": "Deep forest inner, muted sage outer, RAM sage",
-  "ram": [107, 143, 113],
+  "ram": [
+    107,
+    143,
+    113
+  ],
   "wired": {
-    "inner": [27, 67, 50],
-    "outer": [107, 143, 113]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [27, 67, 50],
-    "outer_count": 36,
-    "outer_color": [107, 143, 113]
+    "inner": [
+      27,
+      67,
+      50
+    ],
+    "outer": [
+      107,
+      143,
+      113
+    ]
   }
 }

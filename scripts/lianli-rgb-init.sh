@@ -27,9 +27,8 @@ PROFILE_JSON="${PROFILE_DIR}/${PROFILE_NAME}.json"
 WIRELESS=$(python3 -c "
 import json
 p = json.load(open('$PROFILE_JSON'))
-w = p['wireless']
-inner = w['inner_color']
-outer = w['outer_color']
+inner = p['wired']['inner']
+outer = p['wired']['outer']
 colors = [inner] * $WIRELESS_INNER + [outer] * $WIRELESS_OUTER
 print(json.dumps(colors))
 ")
@@ -49,7 +48,7 @@ print(json.dumps(cmd, separators=(',',':')))
 # 5-second RF transmission window per SetRgbDirect.
 for pass in 1 2; do
   for dev in $WIRELESS_DEVICES; do
-    for zone in 0 1 2; do
+    for zone in $(seq 0 $((WIRELESS_ZONES - 1))); do
       send_direct "$dev" "$zone" "$WIRELESS"
       sleep 6
     done

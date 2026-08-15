@@ -1,15 +1,21 @@
 {
   "name": "Coral Reef",
   "description": "Warm coral inner, ocean teal outer, RAM coral",
-  "ram": [255, 110, 80],
+  "ram": [
+    255,
+    110,
+    80
+  ],
   "wired": {
-    "inner": [255, 110, 80],
-    "outer": [0, 180, 180]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [255, 110, 80],
-    "outer_count": 36,
-    "outer_color": [0, 180, 180]
+    "inner": [
+      255,
+      110,
+      80
+    ],
+    "outer": [
+      0,
+      180,
+      180
+    ]
   }
 }

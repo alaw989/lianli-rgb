@@ -1,18 +1,28 @@
 {
   "name": "Crimson",
   "description": "Deep crimson inner, brilliant gold outer, RAM gold",
-  "ram": [255, 200, 50],
+  "ram": [
+    255,
+    200,
+    50
+  ],
   "wired": {
-    "inner": [180, 25, 35],
-    "outer": [255, 200, 50]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [180, 25, 35],
-    "outer_count": 36,
-    "outer_color": [255, 200, 50]
+    "inner": [
+      180,
+      25,
+      35
+    ],
+    "outer": [
+      255,
+      200,
+      50
+    ]
   },
   "motherboard": {
-    "color": [255, 200, 50]
+    "color": [
+      255,
+      200,
+      50
+    ]
   }
 }

@@ -1,15 +1,21 @@
 {
   "name": "Lagoon",
   "description": "Tropical turquoise inner, vivid coral outer, RAM coral",
-  "ram": [255, 85, 65],
+  "ram": [
+    255,
+    85,
+    65
+  ],
   "wired": {
-    "inner": [0, 230, 200],
-    "outer": [255, 85, 65]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [0, 230, 200],
-    "outer_count": 36,
-    "outer_color": [255, 85, 65]
+    "inner": [
+      0,
+      230,
+      200
+    ],
+    "outer": [
+      255,
+      85,
+      65
+    ]
   }
 }

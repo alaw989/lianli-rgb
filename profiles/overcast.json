@@ -1,15 +1,21 @@
 {
   "name": "Overcast",
   "description": "Slate blue inner, pale steel outer, RAM steel",
-  "ram": [168, 184, 200],
+  "ram": [
+    168,
+    184,
+    200
+  ],
   "wired": {
-    "inner": [71, 107, 140],
-    "outer": [168, 184, 200]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [71, 107, 140],
-    "outer_count": 36,
-    "outer_color": [168, 184, 200]
+    "inner": [
+      71,
+      107,
+      140
+    ],
+    "outer": [
+      168,
+      184,
+      200
+    ]
   }
 }

@@ -25,9 +25,8 @@ PROFILE_JSON="${PROFILE_DIR}/${PROFILE_NAME}.json"
 WIRELESS=$(python3 -c "
 import json
 p = json.load(open('$PROFILE_JSON'))
-w = p['wireless']
-inner = w['inner_color']
-outer = w['outer_color']
+inner = p['wired']['inner']
+outer = p['wired']['outer']
 colors = [inner] * $WIRELESS_INNER + [outer] * $WIRELESS_OUTER
 print(json.dumps(colors))
 ")
@@ -46,12 +45,10 @@ print(json.dumps(cmd, separators=(',',':')))
 # One gentle pass per device, zones spaced 6s apart to stay within the
 # 5-second RF transmission window per SetRgbDirect.
 for dev in $WIRELESS_DEVICES; do
-  send_direct "$dev" 0 "$WIRELESS"
-  sleep 6
-  send_direct "$dev" 1 "$WIRELESS"
-  sleep 6
-  send_direct "$dev" 2 "$WIRELESS"
-  sleep 6
+  for zone in $(seq 0 $((WIRELESS_ZONES - 1))); do
+    send_direct "$dev" "$zone" "$WIRELESS"
+    sleep 6
+  done
 done
 
 # Motherboard JRAINBOW1 via OpenRGB SDK

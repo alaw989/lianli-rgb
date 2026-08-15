@@ -1,15 +1,21 @@
 {
   "name": "Miami",
   "description": "Purple inner, ocean teal outer, RAM purple",
-  "ram": [255, 255, 255],
+  "ram": [
+    255,
+    255,
+    255
+  ],
   "wired": {
-    "inner": [138, 43, 226],
-    "outer": [0, 200, 200]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [138, 43, 226],
-    "outer_count": 36,
-    "outer_color": [0, 200, 200]
+    "inner": [
+      138,
+      43,
+      226
+    ],
+    "outer": [
+      0,
+      200,
+      200
+    ]
   }
 }

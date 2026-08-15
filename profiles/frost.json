@@ -1,6 +1,20 @@
 {
   "name": "Frost",
-  "wired": { "inner": [220, 230, 255], "outer": [0, 120, 255] },
-  "wireless": { "inner_count": 8, "inner_color": [220, 230, 255], "outer_count": 36, "outer_color": [0, 120, 255] },
-  "ram": [200, 220, 255]
+  "wired": {
+    "inner": [
+      220,
+      230,
+      255
+    ],
+    "outer": [
+      0,
+      120,
+      255
+    ]
+  },
+  "ram": [
+    200,
+    220,
+    255
+  ]
 }

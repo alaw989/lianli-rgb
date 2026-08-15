@@ -1,18 +1,28 @@
 {
   "name": "Inferno",
   "description": "Dark orange inner, bright red outer, RAM red",
-  "ram": [255, 30, 0],
+  "ram": [
+    255,
+    30,
+    0
+  ],
   "wired": {
-    "inner": [255, 80, 0],
-    "outer": [255, 15, 0]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [255, 80, 0],
-    "outer_count": 36,
-    "outer_color": [255, 15, 0]
+    "inner": [
+      255,
+      80,
+      0
+    ],
+    "outer": [
+      255,
+      15,
+      0
+    ]
   },
   "motherboard": {
-    "color": [255, 15, 0]
+    "color": [
+      255,
+      15,
+      0
+    ]
   }
 }

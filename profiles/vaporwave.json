@@ -1,15 +1,21 @@
 {
   "name": "Vaporwave",
   "description": "Rich purple inner, hot pink outer, RAM pink",
-  "ram": [255, 105, 180],
+  "ram": [
+    255,
+    105,
+    180
+  ],
   "wired": {
-    "inner": [153, 50, 204],
-    "outer": [255, 105, 180]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [153, 50, 204],
-    "outer_count": 36,
-    "outer_color": [255, 105, 180]
+    "inner": [
+      153,
+      50,
+      204
+    ],
+    "outer": [
+      255,
+      105,
+      180
+    ]
   }
 }

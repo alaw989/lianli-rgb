@@ -18,10 +18,8 @@ assert isinstance(w.get('inner'), list) and len(w['inner']) == 3
 assert isinstance(w.get('outer'), list) and len(w['outer']) == 3
 for c in w['inner'] + w['outer']:
     assert 0 <= c <= 255
-wl = p.get('wireless', {})
-ic, oc = wl.get('inner_count'), wl.get('outer_count')
-if ic is not None and oc is not None:
-    assert ic + oc == 44, f"{sys.argv[1]}: wireless split {ic}+{oc} != 44"
+wl = p.get('wireless')
+assert wl is None, f"{sys.argv[1]}: 'wireless' section is redundant (colors come from wired.*, split from capabilities.json)"
 r = p.get('ram')
 if r is not None:
     assert len(r) == 3 and all(0 <= c <= 255 for c in r)
@@ -52,22 +50,42 @@ for name, dev in d.items():
 PY
 echo "OK: capabilities.json valid"
 
-echo "== Profile wireless split matches capabilities =="
-WL_CAPS="$(python3 -c "import json; l=json.load(open('$ROOT/capabilities.json'))['devices']['wireless_slinf']['led_layout']; print(l['inner'], l['outer'])")"
-WL_IN="${WL_CAPS%% *}"
-WL_OUT="${WL_CAPS##* }"
-for f in "$ROOT"/profiles/*.json; do
-  python3 - "$f" "$WL_IN" "$WL_OUT" <<'PY' || FAIL=1
-import json, sys
-p = json.load(open(sys.argv[1]))
-w = p.get('wireless') or {}
-if w.get('inner_count') is not None:
-    if w['inner_count'] != int(sys.argv[2]) or w['outer_count'] != int(sys.argv[3]):
-        print(f"{sys.argv[1]}: wireless split {w['inner_count']}/{w['outer_count']} != {sys.argv[2]}/{sys.argv[3]}", file=sys.stderr)
-        sys.exit(1)
+echo "== Profile spec collapsed (no wireless.* redundancy) =="
+if python3 - "$ROOT" <<'PY'
+import json, os, re, sys
+root = sys.argv[1]
+pat = re.compile(r'inner_color|outer_color|inner_count|outer_count')
+zone_re = re.compile(r'range\(\s*3\s*\)|\bin 0 1 2\b')
+bad = []
+
+# scripts/ must reference no removed wireless.* fields
+for fn in sorted(os.listdir(os.path.join(root, 'scripts'))):
+    if not fn.endswith('.sh'):
+        continue
+    for i, line in enumerate(open(os.path.join(root, 'scripts', fn)), 1):
+        if pat.search(line):
+            bad.append(f"scripts/{fn}:{i}: removed-field reference in {line.strip()[:60]!r}")
+        if zone_re.search(line):
+            bad.append(f"scripts/{fn}:{i}: hardcoded wireless zone count (must come from lianli-capabilities.sh) in {line.strip()[:60]!r}")
+
+# profiles must not carry a wireless section
+for fn in sorted(os.listdir(os.path.join(root, 'profiles'))):
+    if not fn.endswith('.json'):
+        continue
+    p = json.load(open(os.path.join(root, 'profiles', fn)))
+    if 'wireless' in p:
+        bad.append(f"profiles/{fn}: 'wireless' section is redundant")
+
+if bad:
+    for b in bad:
+        print(f"  FAIL: {b}", file=sys.stderr)
+    sys.exit(1)
 PY
-done
-echo "OK: all profile splits match capabilities.json"
+then
+  echo "OK: no wireless.* redundancy in profiles or scripts"
+else
+  FAIL=1
+fi
 
 echo "== Profile naming =="
 for f in "$ROOT"/profiles/*.json; do

@@ -1,15 +1,21 @@
 {
   "name": "Sakura",
   "description": "Cherry blossom pink inner, warm ivory outer, RAM blush",
-  "ram": [255, 180, 200],
+  "ram": [
+    255,
+    180,
+    200
+  ],
   "wired": {
-    "inner": [255, 150, 180],
-    "outer": [255, 240, 220]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [255, 150, 180],
-    "outer_count": 36,
-    "outer_color": [255, 240, 220]
+    "inner": [
+      255,
+      150,
+      180
+    ],
+    "outer": [
+      255,
+      240,
+      220
+    ]
   }
 }

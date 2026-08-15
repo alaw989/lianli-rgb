@@ -1,15 +1,21 @@
 {
   "name": "Voltage",
   "description": "Electric yellow inner, deep electric blue outer, RAM blue",
-  "ram": [20, 80, 255],
+  "ram": [
+    20,
+    80,
+    255
+  ],
   "wired": {
-    "inner": [255, 240, 50],
-    "outer": [20, 80, 255]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [255, 240, 50],
-    "outer_count": 36,
-    "outer_color": [20, 80, 255]
+    "inner": [
+      255,
+      240,
+      50
+    ],
+    "outer": [
+      20,
+      80,
+      255
+    ]
   }
 }

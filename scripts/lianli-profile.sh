@@ -122,7 +122,7 @@ for d in config['rgb']['devices']:
 
 for did in wireless_devices:
     zones = []
-    for z in range(3):
+    for z in range($WIRELESS_ZONES):
         zones.append({
             'effect': {'mode': 'Direct', 'colors': wireless_full, 'speed': 2, 'brightness': 4, 'direction': 'Clockwise', 'scope': 'All'},
             'swap_lr': False, 'swap_tb': False, 'zone_index': z
@@ -130,6 +130,20 @@ for did in wireless_devices:
     new_devices.append({'device_id': did, 'mb_rgb_sync': False, 'zones': zones})
 
 config['rgb']['devices'] = new_devices
+
+# Reconcile fans.speeds wireless device ids from capabilities.json so a MAC
+# change needs no manual config edit. Existing speeds arrays are kept
+# positionally; new devices fall back to a curve that exists in fan_curves.
+fan_speeds = config.get('fans', {}).get('speeds')
+if fan_speeds is not None:
+    old_wl = [e['speeds'] for e in fan_speeds if e['device_id'].startswith('wireless:')]
+    curve_names = [c['name'] for c in config.get('fan_curves', [])]
+    default_name = 'wireless-boost' if 'wireless-boost' in curve_names else (curve_names[0] if curve_names else 'curve-2')
+    default_speeds = [default_name, default_name, default_name, 0]
+    config['fans']['speeds'] = [e for e in fan_speeds if not e['device_id'].startswith('wireless:')]
+    for i, did in enumerate(wireless_devices):
+        speeds = old_wl[i] if i < len(old_wl) else list(default_speeds)
+        config['fans']['speeds'].append({'device_id': did, 'speeds': speeds})
 
 with open('$CONFIG_FILE', 'w') as f:
     json.dump(config, f, indent=2)

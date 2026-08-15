@@ -1,15 +1,21 @@
 {
   "name": "Burning Hells",
   "description": "Blood red inner, infernal ember orange outer, RAM blood red",
-  "ram": [139, 0, 0],
+  "ram": [
+    139,
+    0,
+    0
+  ],
   "wired": {
-    "inner": [139, 0, 0],
-    "outer": [200, 60, 10]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [139, 0, 0],
-    "outer_count": 36,
-    "outer_color": [200, 60, 10]
+    "inner": [
+      139,
+      0,
+      0
+    ],
+    "outer": [
+      200,
+      60,
+      10
+    ]
   }
 }

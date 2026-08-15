@@ -1,6 +1,20 @@
 {
   "name": "Sunset",
-  "wired": { "inner": [255, 80, 0], "outer": [255, 50, 100] },
-  "wireless": { "inner_count": 8, "inner_color": [255, 80, 0], "outer_count": 36, "outer_color": [255, 50, 100] },
-  "ram": [255, 100, 50]
+  "wired": {
+    "inner": [
+      255,
+      80,
+      0
+    ],
+    "outer": [
+      255,
+      50,
+      100
+    ]
+  },
+  "ram": [
+    255,
+    100,
+    50
+  ]
 }

@@ -1,15 +1,21 @@
 {
   "name": "Matrix",
   "description": "Dark green inner, neon green outer, RAM neon green",
-  "ram": [0, 255, 0],
+  "ram": [
+    0,
+    255,
+    0
+  ],
   "wired": {
-    "inner": [0, 51, 0],
-    "outer": [0, 255, 0]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [0, 51, 0],
-    "outer_count": 36,
-    "outer_color": [0, 255, 0]
+    "inner": [
+      0,
+      51,
+      0
+    ],
+    "outer": [
+      0,
+      255,
+      0
+    ]
   }
 }

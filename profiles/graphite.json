@@ -18,20 +18,6 @@
       100
     ]
   },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [
-      115,
-      95,
-      123
-    ],
-    "outer_count": 36,
-    "outer_color": [
-      100,
-      100,
-      100
-    ]
-  },
   "motherboard": {
     "color": [
       20,

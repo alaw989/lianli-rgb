@@ -1,18 +1,28 @@
 {
   "name": "Electric Dream",
   "description": "Electric blue inner, neon orange outer, RAM bright orange",
-  "ram": [255, 140, 0],
+  "ram": [
+    255,
+    140,
+    0
+  ],
   "wired": {
-    "inner": [0, 100, 255],
-    "outer": [255, 120, 0]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [0, 100, 255],
-    "outer_count": 36,
-    "outer_color": [255, 120, 0]
+    "inner": [
+      0,
+      100,
+      255
+    ],
+    "outer": [
+      255,
+      120,
+      0
+    ]
   },
   "motherboard": {
-    "color": [255, 120, 0]
+    "color": [
+      255,
+      120,
+      0
+    ]
   }
 }

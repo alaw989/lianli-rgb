@@ -1,15 +1,21 @@
 {
   "name": "Neon Mint",
   "description": "Spring green inner, soft pink outer, RAM mint green",
-  "ram": [0, 255, 127],
+  "ram": [
+    0,
+    255,
+    127
+  ],
   "wired": {
-    "inner": [0, 255, 127],
-    "outer": [255, 182, 193]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [0, 255, 127],
-    "outer_count": 36,
-    "outer_color": [255, 182, 193]
+    "inner": [
+      0,
+      255,
+      127
+    ],
+    "outer": [
+      255,
+      182,
+      193
+    ]
   }
 }

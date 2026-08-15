@@ -1,15 +1,21 @@
 {
   "name": "Ember",
   "description": "Dark charcoal inner, warm amber outer, RAM amber",
-  "ram": [212, 160, 74],
+  "ram": [
+    212,
+    160,
+    74
+  ],
   "wired": {
-    "inner": [47, 47, 47],
-    "outer": [212, 160, 74]
-  },
-  "wireless": {
-    "inner_count": 8,
-    "inner_color": [47, 47, 47],
-    "outer_count": 36,
-    "outer_color": [212, 160, 74]
+    "inner": [
+      47,
+      47,
+      47
+    ],
+    "outer": [
+      212,
+      160,
+      74
+    ]
   }
 }

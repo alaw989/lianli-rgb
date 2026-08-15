@@ -18,7 +18,7 @@ fi
 CONFIG="$HOME/.config/lianli/config.json"
 
 python3 -c "
-import json, sys
+import json
 
 speed = float($SPEED) / 100.0
 
@@ -53,11 +53,32 @@ wireless_scaled = scale_curve(wireless_base, speed)
 with open('$CONFIG') as f:
     config = json.load(f)
 
-# Update curve-2 (wired)
-config['fan_curves'][0]['curve'] = wired_scaled
+curves = config.get('fan_curves', [])
+curve_names = [c['name'] for c in curves]
 
-# Update wireless-boost (wireless)
-config['fan_curves'][1]['curve'] = wireless_scaled
+# Resolve wired/wireless curve entries by NAME, not position: each fan group
+# references its curve in fans.speeds (device_id prefix tells AL V2 vs SL-INF),
+# so reordering/renaming fan_curves needs no edit here.
+def curve_name_for(prefix, pref):
+    for e in config.get('fans', {}).get('speeds', []):
+        if str(e.get('device_id', '')).startswith(prefix) and e.get('speeds'):
+            name = e['speeds'][0]
+            if name in curve_names:
+                return name
+    return pref if pref in curve_names else None
+
+wired_name = curve_name_for('hid:', 'curve-2') or 'curve-2'
+wireless_name = curve_name_for('wireless:', 'wireless-boost') or 'wireless-boost'
+if wired_name not in curve_names or wireless_name not in curve_names:
+    raise SystemExit('ERROR: config.json fan_curves missing wired/wireless curve')
+if wired_name == wireless_name:
+    raise SystemExit('ERROR: wired and wireless fan curves resolve to the same entry')
+
+for c in curves:
+    if c['name'] == wired_name:
+        c['curve'] = wired_scaled
+    elif c['name'] == wireless_name:
+        c['curve'] = wireless_scaled
 
 with open('$CONFIG', 'w') as f:
     json.dump(config, f, indent=2)
