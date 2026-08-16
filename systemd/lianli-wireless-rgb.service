@@ -1,7 +1,7 @@
 [Unit]
 Description=Apply Direct RGB to Wireless SL-INF Fans
 After=lianli-daemon.service
-Requires=lianli-daemon.service
+Wants=lianli-daemon.service
 
 [Service]
 Type=oneshot

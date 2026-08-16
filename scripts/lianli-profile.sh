@@ -46,6 +46,18 @@ for group in $WIRED_GROUPS; do
 done
 echo "  Wired fans: done"
 
+# --- OpenRGB server readiness (RAM + motherboard need it) ---
+# Bounded wait: covers boot (openrgb-server has a 15s ExecStartPre sleep) and
+# gamemode-end restart races. Falls through silently if never ready.
+if [ -n "$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); r=p.get('ram'); print(json.dumps(r) if r else '')" 2>/dev/null)" ] || echo "$PROFILE" | python3 -c "import json,sys; exit(0 if json.load(sys.stdin).get('motherboard') else 1)" 2>/dev/null; then
+  for _ in $(seq 1 15); do
+    if timeout 2 bash -c 'echo > /dev/tcp/127.0.0.1/6742' 2>/dev/null; then
+      break
+    fi
+    sleep 2
+  done
+fi
+
 # --- RAM: OpenRGB SDK (if profile has ram color) ---
 RAM_COLOR=$(echo "$PROFILE" | python3 -c "import json,sys; p=json.load(sys.stdin); r=p.get('ram'); print(json.dumps(r) if r else '')" 2>/dev/null)
 

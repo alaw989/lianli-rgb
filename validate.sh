@@ -165,6 +165,36 @@ for s in lianli-daemon.service openrgb-server.service; do
   fi
 done
 
+echo "== Systemd unit enablement =="
+for u in lianli-daemon.service lianli-fan-speed.service lianli-rgb-init.service \
+         lianli-rgb-watchdog.timer lianli-wireless-rgb.service \
+         openrgb-server.service openrgb-wakeup.service; do
+  st=$(systemctl --user is-enabled "$u" 2>/dev/null || echo unknown)
+  case "$st" in
+    enabled|static) echo "OK: $u ($st)" ;;
+    *) echo "FAIL: $u is $st" >&2; FAIL=1 ;;
+  esac
+done
+
+echo "== Watchdog timer active =="
+wt=$(systemctl --user is-active lianli-rgb-watchdog.timer 2>/dev/null || echo inactive)
+if [ "$wt" = "active" ]; then
+  echo "OK: lianli-rgb-watchdog.timer"
+else
+  echo "FAIL: lianli-rgb-watchdog.timer is $wt (fans will revert to rainbow)" >&2
+  FAIL=1
+fi
+
+echo "== Boot profile apply =="
+bs=$(systemctl --user is-active lianli-wireless-rgb.service 2>/dev/null || echo inactive)
+result=$(systemctl --user show lianli-wireless-rgb.service -p Result --value 2>/dev/null)
+if [ "$bs" = "active" ] && [ "$result" = "success" ]; then
+  echo "OK: lianli-wireless-rgb.service ($result)"
+else
+  echo "FAIL: lianli-wireless-rgb.service active=$bs result=$result" >&2
+  FAIL=1
+fi
+
 echo "== Socket =="
 SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/lianli-daemon.sock"
 if [ -S "$SOCK" ]; then
@@ -186,8 +216,15 @@ else
 fi
 
 echo "== Current profile =="
-if [ -f "$ROOT/../.config/lianli/current-profile" ] || [ -f "${HOME}/.config/lianli/current-profile" ]; then
-  echo "OK: current-profile set"
+CP="${HOME}/.config/lianli/current-profile"
+if [ -f "$CP" ]; then
+  PROF=$(cat "$CP" 2>/dev/null)
+  if [ -n "$PROF" ] && [ -f "${HOME}/.config/lianli/profiles/${PROF}.json" ]; then
+    echo "OK: current-profile -> $PROF"
+  else
+    echo "FAIL: current-profile points to '$PROF' but profiles/${PROF}.json is missing" >&2
+    FAIL=1
+  fi
 else
   echo "FAIL: no current-profile" >&2
   FAIL=1
