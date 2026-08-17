@@ -15,7 +15,12 @@ SOCKET="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/lianli-daemon.sock"
 PROFILE_FILE="${HOME}/.config/lianli/current-profile"
 PROFILE_DIR="${HOME}/.config/lianli/profiles"
 
-[ -S "$SOCKET" ] || exit 0
+# Socket must exist AND be live. A stale socket (daemon down, e.g. during
+# gamemode suspend) must exit 0 — the watchdog simply has nothing to do.
+if [ ! -S "$SOCKET" ]; then exit 0; fi
+if ! echo '{"method":"Ping"}' | socat - UNIX-CONNECT:"$SOCKET" >/dev/null 2>&1; then
+  exit 0
+fi
 [ -f "$PROFILE_FILE" ] || exit 0
 
 PROFILE_NAME=$(cat "$PROFILE_FILE")
@@ -39,7 +44,7 @@ import json
 cmd = {'method': 'SetRgbDirect', 'params': {'device_id': '$dev', 'zone': $zone, 'colors': $colors}}
 print(json.dumps(cmd, separators=(',',':')))
 ")
-  echo "$payload" | socat - UNIX-CONNECT:"$SOCKET" >/dev/null 2>&1
+  echo "$payload" | socat - UNIX-CONNECT:"$SOCKET" >/dev/null 2>&1 || true
 }
 
 # One gentle pass per device, zones spaced 6s apart to stay within the
@@ -51,7 +56,8 @@ for dev in $WIRELESS_DEVICES; do
   done
 done
 
-# Motherboard JRAINBOW1 via OpenRGB SDK
+# Motherboard JRAINBOW1 via OpenRGB SDK (best-effort: server may be down —
+# that must not fail the whole run, the wireless push already happened)
 python3 -c "
 import json
 from openrgb import OpenRGBClient
@@ -72,4 +78,5 @@ for dev in c.devices:
         dev.set_colors(colors)
         break
 c.disconnect()
-" 2>/dev/null
+" 2>/dev/null || true
+exit 0
