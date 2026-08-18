@@ -1,0 +1,9 @@
+[Unit]
+Description=Lian Li wireless RGB drift logger timer (hourly)
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=timers.target

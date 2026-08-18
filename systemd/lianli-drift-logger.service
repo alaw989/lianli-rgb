@@ -1,0 +1,6 @@
+[Unit]
+Description=Lian Li wireless RGB drift logger (hourly)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/lianli-drift-logger.sh
