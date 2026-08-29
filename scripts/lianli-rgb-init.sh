@@ -44,6 +44,17 @@ print(json.dumps(cmd, separators=(',',':')))
   echo "$payload" | socat - UNIX-CONNECT:"$SOCKET" >/dev/null 2>&1
 }
 
+# Serialize against concurrent daemon-restart/repush sequences in
+# lianli-fan-speed.sh and lianli-profile.sh: a daemon restart mid-sequence
+# silently drops in-flight SetRgbDirect calls and can desync the wireless
+# RF channel. Bounded wait so a stuck lock holder can't hang us forever.
+LOCKFILE="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/lianli-boot.lock"
+exec {lock_fd}>"$LOCKFILE"
+if ! flock -w 60 "$lock_fd"; then
+  echo "WARNING: lianli-rgb-init: RGB lock busy >60s, skipping this push" >&2
+  exit 0
+fi
+
 # Two full passes per device, zones spaced 6s apart to fit within the
 # 5-second RF transmission window per SetRgbDirect.
 for pass in 1 2; do

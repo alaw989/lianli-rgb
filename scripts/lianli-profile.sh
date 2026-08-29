@@ -162,8 +162,14 @@ with open('$CONFIG_FILE', 'w') as f:
 print('  Config file: written')
 " 2>/dev/null || true
 
-# Restart daemon so RGB controller re-reads config from file
+# Restart daemon so RGB controller re-reads config from file.
+# Serialize against lianli-rgb-init.sh/lianli-fan-speed.sh so this restart
+# can't interrupt one of their in-flight wireless RF pushes.
+LOCKFILE="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/lianli-boot.lock"
+exec {lock_fd}>"$LOCKFILE"
+flock -w 60 "$lock_fd" || echo "WARNING: lianli-profile: RGB lock busy >60s, restarting daemon anyway" >&2
 systemctl --user restart lianli-daemon
+flock -u "$lock_fd"
 
 # Wait for socket
 for i in $(seq 1 15); do

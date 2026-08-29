@@ -88,8 +88,14 @@ print(f'  Wired curve:   ', [[f'{d:.0f}' for _, d in wired_scaled]])
 print(f'  Wireless curve:', [[f'{d:.0f}' for _, d in wireless_scaled]])
 "
 
+# Serialize the restart against lianli-rgb-init.sh/lianli-profile.sh so we
+# don't yank the daemon out from under an in-flight wireless RF push.
+LOCKFILE="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/lianli-boot.lock"
+exec {lock_fd}>"$LOCKFILE"
+flock -w 60 "$lock_fd" || echo "WARNING: lianli-fan-speed: RGB lock busy >60s, restarting daemon anyway" >&2
 systemctl --user restart lianli-daemon >/dev/null 2>&1
 sleep 4
+flock -u "$lock_fd"
 
 # Re-push RGB with proper 6s spacing after daemon restart (avoids RF saturation
 # from the daemon's startup burst leaving some wireless zones uncolored)
