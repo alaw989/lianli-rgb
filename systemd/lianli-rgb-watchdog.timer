@@ -2,7 +2,7 @@
 Description=Lian Li wireless RGB keepalive timer (every 60s)
 
 [Timer]
-OnActiveSec=10s
+OnActiveSec=120s
 OnUnitActiveSec=60s
 
 [Install]

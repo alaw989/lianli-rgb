@@ -7,6 +7,6 @@ Wants=lianli-daemon.service
 Type=oneshot
 ExecStart=%h/.local/bin/lianli-wireless-rgb.sh
 RemainAfterExit=yes
-
-[Install]
-WantedBy=default.target
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

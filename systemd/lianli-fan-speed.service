@@ -1,12 +1,12 @@
 [Unit]
-Description=Lian Li fan speed setting (50%)
+Description=Lian Li fan speed setting (1400 RPM)
 After=lianli-daemon.service
 Wants=lianli-daemon.service
 
 [Service]
 Type=oneshot
-ExecStart=%h/.local/bin/lianli-fan-speed.sh 50
+ExecStart=%h/.local/bin/lianli-fan-speed.sh 1400
 RemainAfterExit=yes
-
-[Install]
-WantedBy=default.target
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7

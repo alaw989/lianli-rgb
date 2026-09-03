@@ -1,0 +1,8 @@
+[Unit]
+Description=Lian Li fan speed setting trigger (decoupled from login)
+
+[Timer]
+OnActiveSec=2s
+
+[Install]
+WantedBy=default.target

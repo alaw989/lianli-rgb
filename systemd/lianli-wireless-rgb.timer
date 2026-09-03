@@ -1,0 +1,8 @@
+[Unit]
+Description=Lian Li wireless RGB profile trigger (decoupled from login so its ~23s profile application doesn't gate default.target)
+
+[Timer]
+OnActiveSec=2s
+
+[Install]
+WantedBy=default.target

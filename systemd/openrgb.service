@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenRGB - Apply Copper Patina LED theme
+After=lianli-daemon.service openrgb-server.service
+Requires=openrgb-server.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /home/alaw989/.config/openrgb-theme.py
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,8 @@
+[Unit]
+Description=Lian Li wireless RGB init trigger (intentionally NOT enabled at boot: lianli-fan-speed.service and lianli-wireless-rgb.service each already re-trigger lianli-rgb-init.service after their own daemon restart, so an independent boot-time fire here only adds RF/socket contention. Still startable on demand.)
+
+[Timer]
+OnActiveSec=2s
+
+[Install]
+WantedBy=default.target
